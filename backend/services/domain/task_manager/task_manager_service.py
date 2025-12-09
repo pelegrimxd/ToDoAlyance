@@ -17,14 +17,9 @@ class TaskManager(ITaskManager):
         task = await self.task_repo.exists(id=update_task.id)
         if owner_id != task.owner:
             raise AccessUserToTaskError
-        new_task_data = {
-            **update_task.model_dump()
-        }
         if update_task.status == TaskStatus.done:
-            new_task_data = {
-                "due_date": datetime.now()
-            }
-        task = await self.task_repo.update(task_id=update_task.id, **new_task_data)
+            update_task.due_date = datetime.now()
+        task = await self.task_repo.update(task_id=update_task.id, **update_task.model_dump())
         return STask.model_validate(task)
 
     async def create_task(self, owner_id: int, new_task: SCreateTask) -> STask:
@@ -54,7 +49,9 @@ class TaskManager(ITaskManager):
         tasks = await self.task_repo.get_all()
         c = 0
         for task in tasks:
-            if task.due_date < datetime.now() and task.status != "done":
-                await self.task_repo.update(task_id=task.id, status=TaskStatus.overdue)
-                c+=1
+            if task.due_date:
+                if task.due_date < datetime.now() and task.status != "done":
+                    task.status = TaskStatus.overdue
+                    await self.task_repo.update(task_id=task.id, )
+                    c+=1
         return c

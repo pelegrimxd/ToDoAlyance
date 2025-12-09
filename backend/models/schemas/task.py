@@ -24,12 +24,14 @@ class SCreateTask(BaseModel):
     title: str
     description: str
     status: TaskStatus
+    due_date: Optional[datetime] = None
 
 class SUpdatedTask(BaseModel):
     id: int
-    title: str = None
-    description: str = None
-    status: TaskStatus = None
+    title: str
+    description: str
+    status: TaskStatus
+    due_date: Optional[datetime] = None
 
 class SFilterTask(BaseModel):
     status: Optional[TaskStatus] = None

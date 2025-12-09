@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.Column('status', sa.Enum('todo', 'in_progress', 'done', name='taskstatus'), nullable=False),
+    sa.Column('status', sa.Enum('todo', 'in_progress', 'done', 'overdue', name='taskstatus'), nullable=False),
     sa.Column('due_date', sa.DateTime(), nullable=True),
     sa.Column('owner', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),

@@ -12,6 +12,7 @@ DB_USER = app_config.postgres_user
 DB_PASSWORD = app_config.postgres_password
 
 DATABASE_URL = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@postgres_database:{DB_PORT}/{DB_NAME}'
+DATABASE_ALEMBIC_URL = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:5433/{DB_NAME}'
 
 engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
