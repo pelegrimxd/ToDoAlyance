@@ -1,0 +1,44 @@
+networks:
+  test_alyance_network:
+    name: test_alyance_network
+    driver: bridge
+
+services:
+  fast_api:
+    container_name: fast_api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        ENTRYPOINT_NAME: fast_api
+    working_dir: /apps/
+    networks:
+      - test_alyance_network
+    env_file:
+      - .env
+    ports:
+      - "6543:8000"
+    restart: always
+    depends_on:
+      - postgres_database
+
+
+  postgres_database:
+    image: postgres:15-alpine
+    container_name: postgres_database
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_database:/var/lib/postgresql/data
+    networks:
+      - test_alyance_network
+
+
+volumes:
+  postgres_database:
