@@ -89,5 +89,5 @@ X-User-Id: 1
 
 ## 🌐 Документация
 После запуска доступна:
-- **Swagger UI:** http://localhost:8000/docs
-- **ReDoc:** http://localhost:8000/redoc
+- **Swagger UI:** http://localhost:6543/docs
+- **ReDoc:** http://localhost:6543/redoc
