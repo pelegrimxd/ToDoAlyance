@@ -52,6 +52,13 @@ class TaskManager(ITaskManager):
             if task.due_date:
                 if task.due_date < datetime.now() and task.status != "done":
                     task.status = TaskStatus.overdue
-                    await self.task_repo.update(task_id=task.id, )
+                    updated_task = SUpdatedTask(
+                        id = task.id,
+                        title = task.title,
+                        description = task.description,
+                        status = TaskStatus.overdue,
+                        due_date = task.due_date
+                    )
+                    await self.task_repo.update(task_id=task.id, **updated_task.model_dump())
                     c+=1
         return c
