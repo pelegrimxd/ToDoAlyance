@@ -57,11 +57,11 @@ main.py              # Точка входа FastAPI
 Создайте файл `.env`в корневой директории на основе `.env.example` и настройте подключение к PostgreSQL:
 
 ```ini
-DB_NAME=test
-DB_USER=test
-DB_PASSWORD=test
-DB_HOST=localhost
-DB_PORT=5432
+POSTGRES_DB=postgres
+POSTGRES_USER=test
+POSTGRES_PASSWORD=test
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
 ```
 
 ### 2. Запуск через Docker
